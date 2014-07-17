@@ -13,5 +13,10 @@ feature 'Creating Items' do
 		click_button 'Create Item'
 
 		expect(page).to have_content('Item has been created.')
+
+		item = Item.where(title: "Seafood Platter for 2 at Brandon's").first
+
+		title = "Seafood Platter for 2 at Brandon's - Items - Offerr"
+		expect(page).to have_title(title)
 	end
 end

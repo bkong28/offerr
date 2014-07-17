@@ -13,6 +13,9 @@ class ItemsController < ApplicationController
 			flash[:notice] = "Item has been created."
 			redirect_to @item
 		else
+			flash[:alert] = "Project has not been created."
+
+			render "new"
 		end
 	end
 

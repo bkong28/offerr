@@ -40,6 +40,13 @@ class ItemsController < ApplicationController
 	end
 
 	def destroy
+		@item = Item.find(params[:id])
+		@item.destroy
+
+		flash[:notice] = "Item has been destroyed."
+
+		redirect_to items_path
+
 	end
 
 	private

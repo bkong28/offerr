@@ -15,4 +15,12 @@ feature "Editing Items" do
 
 		expect(page).to have_content("Item has been updated.")
 	end
+
+	scenario "Updating an item with invalid attributes is bad" do
+		fill_in "Title", with: ""
+		click_button "Update Item"
+
+		expect(page).to have_content("Item has not been updated.")
+	end
+
 end

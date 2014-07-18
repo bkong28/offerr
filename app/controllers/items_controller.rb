@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+	before_action :set_item, only: [:show, :edit, :update, :destroy]
+
 	def index
 		@items = Item.all
 	end
@@ -21,15 +23,12 @@ class ItemsController < ApplicationController
 	end
 
 	def show
-		@item = Item.find(params[:id])
 	end
 
 	def edit
-		@item = Item.find(params[:id])
 	end
 
 	def update
-		@item = Item.find(params[:id])
 		if @item.update(item_params)
 			flash[:notice] = "Item has been updated."
 			redirect_to @item
@@ -40,7 +39,6 @@ class ItemsController < ApplicationController
 	end
 
 	def destroy
-		@item = Item.find(params[:id])
 		@item.destroy
 
 		flash[:notice] = "Item has been destroyed."
@@ -53,5 +51,13 @@ class ItemsController < ApplicationController
 		def item_params
 			params.require(:item).permit(:title, :value, :description, :location)
 		end
+
+		def set_item
+			@item = Item.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			flash[:alert] = "The item you were looking for could not be found."
+			redirect_to items_path
+		end
+
 
 end
